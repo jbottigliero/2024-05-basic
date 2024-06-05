@@ -8,5 +8,30 @@
 </head>
 <body>
   
+  <div id="app"></div>
+
+
+  <script type="text/javascript">
+    const COLLECTION_ID = '6c54cade-bde5-45c1-bdea-f4bd71dba2cc';
+    const APP = document.getElementById('app');
+
+
+    var manager = globus.authorization.create({
+      client: 'ffdab619-b1e0-4422-bd4e-2aa539eec930',
+      redirect: 'https://joe.bottigliero.com/2024-05-basic/',
+      scopes: 'urn:globus:auth:scope:transfer.api.globus.org:all'
+    });
+
+    manager.login();
+
+    manager.handleCodeRedirect();
+
+
+    globus.transfer.endpoint.get(COLLECTION_ID)
+      .then((res) => res.json())
+      .then((body) => APP.textContent = JSON.stringify(body));
+
+
+  </script>
 </body>
 </html>
